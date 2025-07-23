@@ -180,8 +180,6 @@ async def _create_patient_internal(
     temp_password: Временный пароль, если создан новый пользователь, для отправки по email.
     """
 
-    decoded_key = base64.b64decode(settings.aes_key)
-
     if patient_cor_id_value:
         final_patient_cor_id = patient_cor_id_value
     else:
@@ -200,7 +198,7 @@ async def _create_patient_internal(
                 detail=f"Сгенерированный patient_cor_id '{final_patient_cor_id}' уже существует. Повторите попытку.",
             )
         
-    search_tokens_str = get_patient_search_tokens(first_name=patient_data.first_name, last_name=patient_data.surname, middle_name=patient_data.middle_name)
+    search_tokens_str = get_patient_search_tokens(first_name=patient_data.first_name, last_name=patient_data.last_name, middle_name=patient_data.middle_name)
 
     new_patient = Patient(
         id=str(uuid.uuid4()),

@@ -44,7 +44,6 @@ async def create_doctor(
     """
     doctor = Doctor(
         doctor_id=user.cor_id,
-        work_email=doctor_data.work_email,
         phone_number=doctor_data.phone_number,
         first_name=doctor_data.first_name,
         middle_name=doctor_data.middle_name,
@@ -235,32 +234,15 @@ async def get_doctor_patients_with_status(
     total_count = total_count_result.scalar_one()
 
     result = []
-    decoded_key = base64.b64decode(settings.aes_key)
     for dps, patient in patients_with_status:
-        decrypted_surname = (
-            await decrypt_data(patient.encrypted_surname, decoded_key)
-            if patient.encrypted_surname
-            else None
-        )
-        decrypted_first_name = (
-            await decrypt_data(patient.encrypted_first_name, decoded_key)
-            if patient.encrypted_first_name
-            else None
-        )
-        decrypted_middle_name = (
-            await decrypt_data(patient.encrypted_middle_name, decoded_key)
-            if patient.encrypted_middle_name
-            else None
-        )
-
         result.append(
             {
                 "patient": {
                     "id": patient.id,
                     "patient_cor_id": patient.patient_cor_id,
-                    "surname": decrypted_surname,
-                    "first_name": decrypted_first_name,
-                    "middle_name": decrypted_middle_name,
+                    "last_name": patient.last_name,
+                    "first_name": patient.first_name,
+                    "middle_name": patient.middle_name,
                     "birth_date": patient.birth_date,
                     "sex": patient.sex,
                     "email": patient.email,
@@ -376,21 +358,6 @@ async def get_patients_with_optional_status(
     decoded_key = base64.b64decode(settings.aes_key)
 
     for doctor_patient_status, patient, clinic_patient_status in patients_data:
-        decrypted_surname = (
-            await decrypt_data(patient.encrypted_surname, decoded_key)
-            if patient.encrypted_surname
-            else None
-        )
-        decrypted_first_name = (
-            await decrypt_data(patient.encrypted_first_name, decoded_key)
-            if patient.encrypted_first_name
-            else None
-        )
-        decrypted_middle_name = (
-            await decrypt_data(patient.encrypted_middle_name, decoded_key)
-            if patient.encrypted_middle_name
-            else None
-        )
         status_for_doctor = (
             doctor_patient_status.status if doctor_patient_status else None
         )
@@ -402,9 +369,9 @@ async def get_patients_with_optional_status(
         patient_response = PatientResponseForGetPatients(
             id=patient.id,
             patient_cor_id=patient.patient_cor_id,
-            surname=decrypted_surname,
-            first_name=decrypted_first_name,
-            middle_name=decrypted_middle_name,
+            last_name=patient.last_name,
+            first_name=patient.first_name,
+            middle_name=patient.middle_name,
             birth_date=patient.birth_date if patient else None,
             sex=patient.sex if patient else None,
             email=patient.email if patient else None,
