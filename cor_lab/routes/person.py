@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, HTTPException, Depends, UploadFile, status
+from fastapi import APIRouter,  HTTPException, Depends, UploadFile, status
 from datetime import datetime, timedelta, timezone
 from cor_lab.database.db import get_db
 from cor_lab.services import redis_service

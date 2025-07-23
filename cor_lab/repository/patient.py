@@ -21,7 +21,6 @@ from cor_lab.schemas import (
 from cor_lab.repository import person as repository_person
 from cor_lab.repository.password_generator import generate_password
 from cor_lab.repository import cor_id as repository_cor_id
-from cor_lab.services.cipher import encrypt_data
 from cor_lab.services.email import (
     send_email_code_with_temp_pass,
 )

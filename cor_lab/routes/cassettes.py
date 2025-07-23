@@ -14,7 +14,6 @@ from cor_lab.repository import cassette as cassette_service
 from typing import List
 
 from cor_lab.services.access import doctor_access
-from cor_lab.services.glass_and_cassette_printing import print_labels
 
 router = APIRouter(prefix="/cassettes", tags=["Cassette"])
 

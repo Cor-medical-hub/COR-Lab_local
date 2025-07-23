@@ -1,9 +1,4 @@
-import asyncio
 from fastapi import WebSocket
-from sqlalchemy import delete, select
-from datetime import datetime, timedelta
-
-from cor_lab.database.db import async_session_maker
 from loguru import logger
 
 active_connections: dict[str, WebSocket] = {}

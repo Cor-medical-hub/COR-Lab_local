@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-import httpx
 from sqlalchemy.ext.asyncio import AsyncSession
 from cor_lab.database.db import get_db
 from cor_lab.schemas import (
@@ -9,7 +8,6 @@ from cor_lab.schemas import (
     Glass as GlassModelScheema,
     GlassCreate,
     GlassPrinting,
-    PrintLabel,
 )
 from cor_lab.repository import glass as glass_service
 from typing import List
@@ -17,7 +15,6 @@ from typing import List
 from cor_lab.services.access import doctor_access
 from loguru import logger
 
-from cor_lab.services.glass_and_cassette_printing import print_labels
 
 router = APIRouter(prefix="/glasses", tags=["Glass"])
 

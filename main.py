@@ -1,4 +1,3 @@
-import asyncio
 import time
 import uvicorn
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,7 +17,7 @@ from fastapi_limiter import FastAPILimiter
 
 
 from cor_lab.routes import auth, person
-from cor_lab.database.db import get_db, async_session_maker
+from cor_lab.database.db import get_db
 from cor_lab.database.redis_db import redis_client
 
 from cor_lab.routes import (

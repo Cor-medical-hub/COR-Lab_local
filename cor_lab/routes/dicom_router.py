@@ -19,7 +19,6 @@ from skimage.transform import resize
 from collections import Counter
 from cor_lab.services.auth import auth_service
 from cor_lab.database.models import User
-from pydicom import config
 from loguru import logger
 
 pydicom.config.settings.reading_validation_mode = pydicom.config.RAISE

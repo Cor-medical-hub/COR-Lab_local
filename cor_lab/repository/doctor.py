@@ -23,7 +23,6 @@ from cor_lab.database.models import (
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from cor_lab.repository.patient import get_patient_by_corid
-from cor_lab.repository.person import get_user_by_corid
 from cor_lab.schemas import (
     DoctorCreate,
     DoctorSignatureResponse,

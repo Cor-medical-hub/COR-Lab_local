@@ -1,16 +1,13 @@
-from enum import Enum
 from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
     EmailStr,
-    PositiveInt,
-    computed_field,
     field_validator,
-    model_validator,
+
 )
-from typing import Generic, List, Literal, Optional, TypeVar, Union
-from datetime import datetime, time, timedelta
+from typing import List, Literal, Optional, Union
+from datetime import datetime
 
 from cor_lab.database.models import (
     PatientClinicStatus,
@@ -25,7 +22,6 @@ from cor_lab.database.models import (
     StudyType,
     StainingType,
 )
-import re
 from datetime import date
 
 # AUTH MODELS

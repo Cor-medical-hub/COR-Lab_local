@@ -46,7 +46,6 @@ from cor_lab.repository.patient import (
 )
 from cor_lab.schemas import (
     CaseCloseResponse,
-    CaseCreate,
     CaseFinalReportPageResponse,
     CaseIDReportPageResponse,
     ExistingPatientRegistration,

@@ -25,7 +25,6 @@ from cor_lab.services.email import (
 from sqlalchemy.exc import NoResultFound
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from cor_lab.config.config import settings
 
 
 async def get_user_by_email(email: str, db: AsyncSession) -> User | None:

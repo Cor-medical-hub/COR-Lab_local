@@ -42,18 +42,12 @@ from cor_lab.config.config import settings
 from loguru import logger
 from fastapi import UploadFile
 
-from collections import defaultdict
-from datetime import datetime, timedelta
-
-from cor_lab.services.websocket import send_websocket_message
+from datetime import datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from jose import jwt, JWTError
 from cor_lab.database.redis_db import redis_client
 import time
-
-# auth_attempts = defaultdict(list)
-# blocked_ips = {}
 
 # Константы для Redis ключей и порогов
 IP_ATTEMPTS_PREFIX = "login:ip_attempts:"
