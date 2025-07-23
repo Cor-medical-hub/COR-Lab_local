@@ -1,4 +1,3 @@
-import uuid
 from fastapi import HTTPException, status
 from sqlalchemy.future import select
 from cor_lab.database.models import PrintingDevice

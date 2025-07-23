@@ -2374,22 +2374,11 @@ async def _format_final_report_response(
     Эта функция должна быть обновлена для обработки doctor_diagnoses.
     """
     try:
-        decoded_key = base64.b64decode(settings.aes_key)
-        patient_surname = (
-            await decrypt_data(patient_db.encrypted_surname, decoded_key)
-            if patient_db.encrypted_surname
-            else None
-        )
-        patient_first_name = (
-            await decrypt_data(patient_db.encrypted_first_name, decoded_key)
-            if patient_db.encrypted_first_name
-            else None
-        )
-        patient_middle_name = (
-            await decrypt_data(patient_db.encrypted_middle_name, decoded_key)
-            if patient_db.encrypted_middle_name
-            else None
-        )
+
+        patient_surname = patient_db.last_name if patient_db.last_name else None
+        patient_first_name = patient_db.first_name if patient_db.first_name else None
+        patient_middle_name = patient_db.middle_name if patient_db.middle_name else None
+
     except Exception as e:
         print(e)
     user_birth_year = patient_db.birth_date

@@ -1,16 +1,13 @@
-from enum import Enum
 from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
     EmailStr,
-    PositiveInt,
-    computed_field,
     field_validator,
-    model_validator,
+
 )
-from typing import Generic, List, Literal, Optional, TypeVar, Union
-from datetime import datetime, time, timedelta
+from typing import List, Literal, Optional, Union
+from datetime import datetime
 
 from cor_lab.database.models import (
     PatientClinicStatus,
@@ -25,7 +22,6 @@ from cor_lab.database.models import (
     StudyType,
     StainingType,
 )
-import re
 from datetime import date
 
 # AUTH MODELS
@@ -51,7 +47,6 @@ class UserDb(BaseModel):
     email: str
     user_sex: Optional[str] = Field(None, max_length=1)
     birth: Optional[int] = Field(None, ge=1945, le=2100)
-    user_index: int
     created_at: datetime
     last_active: Optional[datetime] = None
 
@@ -342,7 +337,6 @@ class ClinicAffiliationResponse(BaseModel):
 class DoctorWithRelationsResponse(BaseModel):
     id: str
     doctor_id: str
-    work_email: str
     phone_number: Optional[str]
     first_name: Optional[str]
     middle_name: Optional[str]
@@ -426,7 +420,6 @@ class DoctorCreate(BaseModel):
 class DoctorResponse(BaseModel):
     id: str = Field(..., description="ID врача")
     doctor_id: str = Field(..., description="COR-ID врача")
-    work_email: EmailStr = Field(..., description="Рабочий имейл")
     phone_number: Optional[str] = Field(None, description="Номер телефона")
     first_name: Optional[str] = Field(None, description="Имя врача")
     middle_name: Optional[str] = Field(None, description="Отчество врача")
@@ -463,7 +456,6 @@ class DoctorResponseForSignature(BaseModel):
 class DoctorCreateResponse(BaseModel):
     id: str = Field(..., description="ID врача")
     doctor_cor_id: str = Field(..., description="COR-ID врача")
-    work_email: EmailStr = Field(..., description="Рабочий имейл")
     phone_number: Optional[str] = Field(None, description="Номер телефона")
     first_name: str = Field(..., description="Имя врача")
     middle_name: str = Field(..., description="Отчество врача")
@@ -596,9 +588,9 @@ class PatientCreationResponse(BaseModel):
     id: str
     patient_cor_id: str
     user_id: Optional[str] = None
-    encrypted_surname: Optional[bytes]
-    encrypted_first_name: Optional[bytes]
-    encrypted_middle_name: Optional[bytes]
+    last_name: Optional[str]
+    first_name: Optional[str]
+    middle_name: Optional[str]
     birth_date: Optional[date]
     sex: Optional[str]
     email: Optional[EmailStr]
@@ -1488,7 +1480,7 @@ class LabAssistantResponse(BaseModel):
 class PatientResponseForGetPatients(BaseModel):
     id: str
     patient_cor_id: str
-    surname: Optional[str] = None
+    last_name: Optional[str] = None
     first_name: Optional[str] = None
     middle_name: Optional[str] = None
     birth_date: Optional[date] = None

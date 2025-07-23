@@ -25,7 +25,6 @@ from cor_lab.services.email import (
 from sqlalchemy.exc import NoResultFound
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from cor_lab.config.config import settings
 
 
 async def get_user_by_email(email: str, db: AsyncSession) -> User | None:
@@ -240,13 +239,6 @@ async def get_user_roles(email: str, db: AsyncSession) -> List[str]:
     )
     if lab_assistant:
         roles.append("lab_assistant")
-    energy_manager = await role_check.energy_manager_role_checker.is_energy_manager(
-        user=user, db=db
-    )
-    if energy_manager:
-        roles.append("energy_manager")
-    if user.is_active:
-        roles.append("active_user")
     return roles
 
 

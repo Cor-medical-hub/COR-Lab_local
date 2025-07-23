@@ -1,4 +1,3 @@
-import asyncio
 import time
 import uvicorn
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,15 +15,15 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from fastapi_limiter import FastAPILimiter
 
-
-from cor_lab.routes import auth, person
-from cor_lab.database.db import get_db, async_session_maker
+from cor_lab.database.db import get_db
 from cor_lab.database.redis_db import redis_client
 
 from cor_lab.routes import (
     auth,
     cor_id,
     admin,
+    person,
+    records,
     lawyer,
     doctor,
     cases,
@@ -253,6 +252,7 @@ blocked_ips = {}
 app.include_router(auth.router, prefix="/api")
 app.include_router(admin.router, prefix="/api")
 app.include_router(person.router, prefix="/api")
+app.include_router(records.router, prefix="/api")
 app.include_router(cor_id.router, prefix="/api")
 app.include_router(lawyer.router, prefix="/api")
 app.include_router(doctor.router, prefix="/api")

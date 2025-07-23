@@ -1,4 +1,3 @@
-import base64
 from typing import Dict, List
 from fastapi import APIRouter, Body, HTTPException, Depends, Response, status
 from cor_lab.database.db import get_db
@@ -29,9 +28,7 @@ from cor_lab.database.redis_db import redis_client
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 
-from cor_lab.services.cipher import decrypt_data
 from loguru import logger
-from cor_lab.config.config import settings
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 

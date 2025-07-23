@@ -121,7 +121,6 @@ async def get_all_doctors(
         DoctorResponse(
             id=doctor.id,
             doctor_id=doctor.doctor_id,
-            work_email=doctor.work_email,
             phone_number=doctor.phone_number,
             first_name=doctor.first_name,
             middle_name=doctor.middle_name,
@@ -275,7 +274,6 @@ async def get_doctor_with_relations(
     doctor_response = DoctorWithRelationsResponse(
         id=doctor.id,
         doctor_id=doctor.doctor_id,
-        work_email=doctor.work_email,
         phone_number=doctor.phone_number,
         first_name=doctor.first_name,
         middle_name=doctor.middle_name,
