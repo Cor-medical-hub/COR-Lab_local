@@ -264,3 +264,33 @@ async def print_cassette_data(
     print_result = await print_labels(printer_ip=data.printer_ip, labels_to_print=[label_to_print], request=request)
 
     return print_result
+
+
+
+async def print_cassette_data(
+    data: CassettePrinting, db: AsyncSession, request: Request
+):
+    db_cassette = await get_cassette_full_info(db=db, cassette_id=data.cassete_id)
+    if db_cassette is None:
+        raise HTTPException(status_code=404, detail=f"Кассета с ID {data.cassete_id} не найдена в базе данных")
+
+    clinic_name = data.clinic_name
+    case_code = db_cassette.case_code
+    sample_number=db_cassette.sample_number
+    cassette_number=db_cassette.cassette_number
+    glass_number="-"
+    staining="-"
+    hooper=data.hooper
+    patient_cor_id=db_cassette.patient_cor_id
+        
+    content = f"{clinic_name}|{case_code}|{sample_number}|{cassette_number}|L{glass_number}|{staining}|{hooper}|{patient_cor_id}"
+
+    label_to_print = PrintLabel(
+        model_id=data.model_id, 
+        content=content,
+        uuid=data.cassete_id
+    )
+
+    print_result = await print_labels(printer_ip=data.printer_ip, labels_to_print=[label_to_print], request=request)
+
+    return print_result

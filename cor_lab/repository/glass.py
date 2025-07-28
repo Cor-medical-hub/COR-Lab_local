@@ -272,3 +272,32 @@ async def print_glass_data(
     print_result = await print_labels(printer_ip=data.printer_ip, labels_to_print=[label_to_print], request=request)
 
     return print_result
+
+
+async def print_glass_data(
+    data: GlassPrinting, db: AsyncSession, request: Request
+):
+    db_glass = await get_full_glass_info(db, data.glass_id)
+    if db_glass is None:
+        raise HTTPException(status_code=404, detail=f"Стекло с ID {data.glass_id} не найдено в базе данных")
+
+    clinic_name = data.clinic_name
+    case_code = db_glass.case_code
+    sample_number=db_glass.sample_number
+    cassette_number=db_glass.cassette_number
+    glass_number=db_glass.glass_number
+    staining=db_glass.staining
+    hooper=data.hooper
+    patient_cor_id=db_glass.patient_cor_id
+        
+    content = f"{clinic_name}|{case_code}|{sample_number}|{cassette_number}|L{glass_number}|{staining}|{hooper}|{patient_cor_id}"
+
+    label_to_print = PrintLabel(
+        model_id=data.model_id, 
+        content=content,
+        uuid=data.glass_id
+    )
+
+    print_result = await print_labels(printer_ip=data.printer_ip, labels_to_print=[label_to_print], request=request)
+
+    return print_result
