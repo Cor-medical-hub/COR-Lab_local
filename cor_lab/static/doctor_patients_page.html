@@ -329,7 +329,7 @@
                         return {
                             ...patient,
                             change_date: "2025-05-09T07:19:51.498743",
-                            name: getFulName(patient.last_name, patient.first_name, patient.middle_name),
+                            name: getFulName(patient.surname, patient.first_name, patient.middle_name),
                             age: patient.birth_date ? getAge(patient.birth_date) : null, // добавить
                             status: patient?.status,
                         }
@@ -547,7 +547,7 @@
         // Собираем данные
         const patientData = {
             email: emailField.value.trim(),
-            last_name: surnameField.value.trim(),
+            surname: surnameField.value.trim(),
             first_name: firstNameField.value.trim(),
             middle_name: middleNameField.value.trim(),
             birth_date: birthDateField.value,
@@ -559,7 +559,7 @@
         };
 
         if(checkToken()){
-            fetch('/api/doctor/patients/register-new', {
+            fetch('https://dev-corid.cor-medical.ua/api/doctor/patients/register-new', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
