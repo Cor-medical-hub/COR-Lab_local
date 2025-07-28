@@ -8,7 +8,6 @@ from cor_lab.schemas import (
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 async def create_printing_device(db: AsyncSession, body: CreatePrintingDevice):
     db_printing_device = PrintingDevice(
         device_class=body.device_class,
@@ -105,8 +104,10 @@ async def delete_printing_device_by_id(uuid: str, db: AsyncSession):
     result = await db.execute(stmt)
     printing_device = result.scalar_one_or_none()
     if not printing_device:
-        return None
+        raise HTTPException(
+            status_code=404,
+            detail= "Device not found"
+        )
     await db.delete(printing_device)
     await db.commit()
-    print("printing_device deleted")
     return

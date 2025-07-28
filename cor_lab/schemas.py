@@ -835,6 +835,11 @@ class Case(BaseModel):
     class Config:
         from_attributes = True
 
+class CaseWithOwner(Case):
+    is_case_owner: Optional[bool]
+
+    class Config:
+        from_attributes = True
 
 class UpdateCaseCodeResponce(BaseModel):
     id: str
@@ -1173,6 +1178,11 @@ class FirstCaseReferralDetailsSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class FirstCaseReferralDetailsWithOwner(FirstCaseReferralDetailsSchema):
+    is_case_owner: Optional[bool]
+
+    class Config:
+        from_attributes = True
 
 class DoctorSignatureBase(BaseModel):
     signature_name: Optional[str] = None
@@ -1334,6 +1344,11 @@ class FirstCaseGlassDetailsSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class FirstCaseGlassDetailsSchemaWithOwner(FirstCaseGlassDetailsSchema):
+    is_case_owner: Optional[bool]
+
+    class Config:
+        from_attributes = True
 
 class PatientGlassPageResponse(BaseModel):
     all_cases: List[Case]
@@ -1395,6 +1410,11 @@ class LastCaseExcisionDetailsSchema(BaseModel):
     class Config:
         from_attributes = True
 
+class LastCaseExcisionDetailsSchemaWithOwner(LastCaseExcisionDetailsSchema):
+    is_case_owner: Optional[bool]
+
+    class Config:
+        from_attributes = True
 
 class PatientExcisionPageResponse(BaseModel):
     all_cases: List[Case]
@@ -1629,7 +1649,7 @@ class GeneralPrinting(BaseModel):
     model_id: int
     clinic_name: str
     hooper: str
-
+    # printing: bool
 
 class GlassPrinting(BaseModel):
     printer_ip: str
